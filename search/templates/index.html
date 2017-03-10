@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+
+    {% if words_for_search %}
+        <h1>All items with words "{{ words_for_search }}":</h1>
+    {% else %}
+        <h1>All items ({{ all_items.count }}):</h1>
+    {% endif %}
+    {% if all_items %}
+        <ul>
+            {% for item in all_items %}
+            <li><a href="{% url 'search:detail' item.id %}">{{ item.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h2>You don't have any items</h2>
+    {% endif %}
+    <ul>
+{% if all_words %}
+       <ul>
+            {% for word in all_words %}
+            <li>{{ word.word }} {{ word.idf }}</li>
+            {% endfor %}
+        </ul>
+{% endif %}
+
+{% endblock %}
